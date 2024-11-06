@@ -40,12 +40,10 @@ public class SPUM_Prefabs : MonoBehaviour
         OverrideController = new AnimatorOverrideController();
         OverrideController.runtimeAnimatorController= animator.runtimeAnimatorController;
 
-        // 모든 애니메이션 클립을 가져옵니다
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
 
         foreach (AnimationClip clip in clips)
         {
-            // 복제된 클립으로 오버라이드합니다
             OverrideController[clip.name] = clip;
         }
 
