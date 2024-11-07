@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 185489523}
   m_Layer: 0
   m_Name: Perso
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,6 +151,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  dashSpeed: 30
+  cooldownBasicAttack: 2
+  cooldownDistanceAttack: 6
+  cooldownDash: 10
+  canAttack: 0
+  canDash: 0
+  canTrhow: 0
+  throwKiwi: {fileID: 7488273718371543071, guid: a195385edbf6f0048b997826e72e9b6a, type: 3}
+  throwSpeed: 20
+  dashDuration: 0.3
 --- !u!50 &185489521
 Rigidbody2D:
   serializedVersion: 5
