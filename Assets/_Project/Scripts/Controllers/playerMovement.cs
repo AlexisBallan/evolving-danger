@@ -24,7 +24,7 @@ public class playerMovement : MonoBehaviour
     private Vector2 dashDirection;
     private SPUM_Prefabs spum_prefabs;
     private bool isRunning = false; // Indicateur de course
-    private bool facingRight = false;
+    private bool facingRight = true;
     private bool isAttacking, isThrowing, isDashing = false;
     private float lastBasicAttack, lastDistanceAttack, lastDash = 0;
     private float dashTime;
@@ -77,11 +77,14 @@ public class playerMovement : MonoBehaviour
                 }
             }
 
-            if (movement.x > 0 && !facingRight)
+            Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouseWorldPosition.z = 0;
+
+            if (mouseWorldPosition.x < transform.position.x && !facingRight)
             {
                 Flip();
             }
-            else if (movement.x < 0 && facingRight)
+            else if (mouseWorldPosition.x > transform.position.x && facingRight)
             {
                 Flip();
             }
@@ -96,7 +99,7 @@ public class playerMovement : MonoBehaviour
             isAttacking = true;
             isRunning = false;
             spum_prefabs.PlayAnimation(PlayerState.ATTACK, 0);
-            StartCoroutine(IdleCoroutine());
+            StartCoroutine(IdleCoroutine(0.5f));
         } else if (mouse.rightButton.wasPressedThisFrame && lastDistanceAttack < Time.time)
         {
             lastDistanceAttack = Time.time + cooldownDistanceAttack;
@@ -104,7 +107,7 @@ public class playerMovement : MonoBehaviour
             isThrowing = true;
             isRunning = false;
             spum_prefabs.PlayAnimation(PlayerState.ATTACK, 2);
-            StartCoroutine(IdleCoroutine());
+            StartCoroutine(IdleCoroutine(0.8f));
             StartCoroutine(ThrowKiwi());
         }
 
@@ -137,11 +140,11 @@ public class playerMovement : MonoBehaviour
         }
     }
 
-    IEnumerator IdleCoroutine()
+    IEnumerator IdleCoroutine(float waitForSeconds)
     {
         Debug.Log("début coroutine");
         
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(waitForSeconds);
         isAttacking = false;
         isThrowing = false;
     }
